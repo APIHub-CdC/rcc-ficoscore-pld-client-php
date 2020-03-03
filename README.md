@@ -20,7 +20,9 @@ apt-get install php7.3-mbstring
 
 Ejecutar: `composer install`
 ## Guía de inicio
+
 ### Paso 1. Generar llave y certificado
+
 - Se tiene que tener un contenedor en formato PKCS12.
 - En caso de no contar con uno, ejecutar las instrucciones contenidas en **lib/Interceptor/key_pair_gen.sh** ó con los siguientes comandos.
 - **opcional**: Para cifrar el contenedor, colocar una contraseña en una variable de ambiente.
@@ -54,7 +56,9 @@ openssl pkcs12 -name ${ALIAS} \
     -inkey ${PRIVATE_KEY_FILE} \
     -in ${CERTIFICATE_FILE} -password pass:${KEY_PASSWORD}
 ```
+
 ### Paso 2. Cargar el certificado dentro del portal de desarrolladores
+
  1. Iniciar sesión.
  2. Dar clic en la sección "**Mis aplicaciones**".
  3. Seleccionar la aplicación.
@@ -66,7 +70,9 @@ openssl pkcs12 -name ${ALIAS} \
     <p align="center">
       <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/upload_cert.png" width="268">
     </p>
+
 ### Paso 3. Descargar el certificado de Círculo de Crédito dentro del portal de desarrolladores
+
  1. Iniciar sesión.
  2. Dar clic en la sección "**Mis aplicaciones**".
  3. Seleccionar la aplicación.
@@ -93,19 +99,21 @@ $this->signer = new \RCCFicoScorePLD\Client\Interceptor\KeyHandler(
 );
 ```
  > **NOTA:** Sólamente en caso de que el contenedor haya cifrado, se debe colocar la contraseña en una variable de ambiente e indicar el nombre de la misma, como se ve en la imagen anterior.
-### Paso 4. Modificar URL
+### Paso 2. Modificar URL
  Modificar la URL de la petición en ***test/Api/ApiTest.php***, como se muestra en el siguiente fragmento de código:
  ```php
  $config = new \RCCFicoScorePLD\Client\Configuration();
  $config->setHost('the_url');
  ```
  
-### Paso 5. Reporte completo o segmentado
+### Paso 4. Reporte completo o segmentado
+
  Modificar la variable en ***test/Api/ApiTest.php*** (false si es segmentado o true para reporte completo), como se muestra en el siguiente fragmento de código:
  ```php
 $this->x_full_report = 'false';
  ```
-### Paso 6. Capturar los datos de la petición
+ 
+### Paso 5. Capturar los datos de la petición
 
 Es importante contar con el setUp() que se encargará de firmar y verificar la petición.
 
@@ -193,6 +201,7 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
 }
 
 ```
+
 ## Pruebas unitarias
 
 Para ejecutar las pruebas unitarias:
