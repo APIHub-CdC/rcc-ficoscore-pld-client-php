@@ -115,7 +115,7 @@ $this->signer = new \RCCFicoScorePLD\Client\Interceptor\KeyHandler(
 $this->x_full_report = 'false';
  ```
  
-### Paso 5. Capturar los datos de la petición
+### Paso 6. Capturar los datos de la petición
 
 Es importante contar con el setUp() que se encargará de firmar y verificar la petición.
 
