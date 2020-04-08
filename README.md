@@ -1,4 +1,4 @@
-# Reporte de Crédito Consolidado con FICO® Score y Prevención de Lavado de Dinero
+# rcc-ficoscore-pld-client-php
 
 Reporta el historial crediticio; el cumplimiento de pago de los compromisos que la persona ha adquirido con entidades financieras, no financieras e instituciones comerciales que dan crédito o participan en actividades afines al crédito; y filtra contra listas de cumplimiento para Prevención de Lavado de Dinero.
 
@@ -25,7 +25,8 @@ Ejecutar: `composer install`
 
 - Se tiene que tener un contenedor en formato PKCS12.
 - En caso de no contar con uno, ejecutar las instrucciones contenidas en **lib/Interceptor/key_pair_gen.sh** ó con los siguientes comandos.
-- **opcional**: Para cifrar el contenedor, colocar una contraseña en una variable de ambiente.
+
+**opcional**: Para cifrar el contenedor, colocar una contraseña en una variable de ambiente.
 ```sh
 export KEY_PASSWORD=your_password
 ```
@@ -99,14 +100,15 @@ $this->signer = new \RCCFicoScorePLD\Client\Interceptor\KeyHandler(
 );
 ```
  > **NOTA:** Sólamente en caso de que el contenedor haya cifrado, se debe colocar la contraseña en una variable de ambiente e indicar el nombre de la misma, como se ve en la imagen anterior.
-### Paso 2. Modificar URL
+
+### Paso 4. Modificar URL
  Modificar la URL de la petición en ***test/Api/ApiTest.php***, como se muestra en el siguiente fragmento de código:
  ```php
  $config = new \RCCFicoScorePLD\Client\Configuration();
  $config->setHost('the_url');
  ```
  
-### Paso 4. Reporte completo o segmentado
+### Paso 5. Reporte completo o segmentado
 
  Modificar la variable en ***test/Api/ApiTest.php*** (false si es segmentado o true para reporte completo), como se muestra en el siguiente fragmento de código:
  ```php
