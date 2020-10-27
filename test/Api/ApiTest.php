@@ -1,34 +1,35 @@
 <?php
-namespace RCCFicoScorePLD\Client;
+namespace RCCFSPLD\MX\Client;
 
 use \GuzzleHttp\Client;
-use \GuzzleHttp\Event\Emitter;
-use \GuzzleHttp\Middleware;
 use \GuzzleHttp\HandlerStack as handlerStack;
 
-use \RCCFicoScorePLD\Client\ApiException;
-use \RCCFicoScorePLD\Client\Configuration;
-use \RCCFicoScorePLD\Client\Model\Error;
-use \RCCFicoScorePLD\Client\Interceptor\KeyHandler;
-use \RCCFicoScorePLD\Client\Interceptor\MiddlewareEvents;
+use Signer\Manager\ApiException;
+use Signer\Manager\Interceptor\MiddlewareEvents;
+use Signer\Manager\Interceptor\KeyHandler;
 
-class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
+use \RCCFSPLD\MX\Client\Api\RCCFSPLDApi as Instance;
+use \RCCFSPLD\MX\Client\Configuration;
+use \RCCFSPLD\MX\Client\Model\Error;
+
+use \RCCFSPLD\MX\Client\Model\CatalogoEstados;
+use \RCCFSPLD\MX\Client\Model\PersonaPeticion;
+use \RCCFSPLD\MX\Client\Model\DomicilioPeticion;
+
+class ApiTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function setUp()
-    {
-        $password = getenv('KEY_PASSWORD');
-        $this->signer = new \RCCFicoScorePLD\Client\Interceptor\KeyHandler(null, null, $password);
-
-        $events = new \RCCFicoScorePLD\Client\Interceptor\MiddlewareEvents($this->signer);
-        $handler = handlerStack::create();
-        $handler->push($events->add_signature_header('x-signature'));   
-        $handler->push($events->verify_signature_header('x-signature'));
-        $client = new \GuzzleHttp\Client(['handler' => $handler]);
-
-        $config = new \RCCFicoScorePLD\Client\Configuration();
+    public function setUp() {
+        $config = new Configuration();
         $config->setHost('the_url');
-        $this->apiInstance = new \RCCFicoScorePLD\Client\Api\RCCFicoScorePLDApi($client, $config);
+        $password = getenv('KEY_PASSWORD');
+        $this->signer = new KeyHandler(null, null, $password);
+        $events = new MiddlewareEvents($this->signer);
+        $handler = HandlerStack::create();
+        $handler->push($events->add_signature_header('x-signature'));
+        $handler->push($events->verify_signature_header('x-signature'));
+        $client = new Client(['handler' => $handler]);
+        $this->apiInstance = new Instance($client, $config);
         $this->x_api_key = "your_api_key";
         $this->username = "your_username";
         $this->password = "your_password";
@@ -36,35 +37,24 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReporte()
     {
-        $estado = new \RCCFicoScorePLD\Client\Model\CatalogoEstados();
-        $request = new \RCCFicoScorePLD\Client\Model\PersonaPeticion();
+        $estado = new CatalogoEstados();
+        $request = new PersonaPeticion();
+        $domicilio = new DomicilioPeticion();        
 
-        $request->setApellidoPaterno("PATERNO");
-        $request->setApellidoMaterno("MATERNO");
-        $request->setApellidoAdicional(null);
-        $request->setPrimerNombre("PRIMERNOMBRE");
-        $request->setSegundoNombre(null);
-        $request->setFechaNacimiento("1952-05-13");
-        $request->setRfc("PAMP010101");
+        $request->setPrimerNombre("JUAN");
+        $request->setApellidoPaterno("PRUEBA");
+        $request->setApellidoMaterno("SIETE");
+        $request->setFechaNacimiento("1980-01-07");
+        $request->setRfc("PUAC800107");
         $request->setCurp(null);
-        $request->setNacionalidad(null);
-        $request->setResidencia(null);
-        $request->setEstadoCivil(null);
-        $request->setSexo(null);
-        $request->setClaveElectorIfe(null);
-        $request->setNumeroDependientes(null);
-        $request->setFechaDefuncion(null);
+        $request->setNacionalidad("MX");
 
-        $domicilio->setDireccion("HIDALGO 32");
-        $domicilio->setColoniaPoblacion(null);
-        $domicilio->setDelegacionMunicipio("LA BARCA");
-        $domicilio->setCiudad("BENITO JUAREZ");
-        $domicilio->setEstado($estado::JAL);
-        $domicilio->setCp("44190");
-        $domicilio->setFechaResidencia(null);
-        $domicilio->setNumeroTelefono(null);
-        $domicilio->setTipoDomicilio(null);
-        $domicilio->setTipoAsentamiento(null);
+        $domicilio->setDireccion("INSURGENTES SUR 1001");
+        $domicilio->setColoniaPoblacion("INSURGENTES SUR");
+        $domicilio->setDelegacionMunicipio("CIUDAD DE MEXICO");
+        $domicilio->setCiudad("CIUDAD DE MEXICO");
+        $domicilio->setEstado($estado::DF);
+        $domicilio->setCp("11230");
         $request->setDomicilio($domicilio);
 
 
@@ -75,7 +65,7 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($result->getFolioConsulta()!==null);
             return $result->getFolioConsulta();
         } catch (Exception $e) {
-            echo 'Exception when calling RCCFicoScorePLDApi->getReporte: ', $e->getMessage(), PHP_EOL;
+            echo 'Exception when calling RCC-FS-PLDApi->getReporte: ', $e->getMessage(), PHP_EOL;
         }
     } 
 
@@ -91,7 +81,7 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
                 print_r($result);
                 $this->assertTrue($result->getConsultas()!==null);
             } catch (Exception $e) {
-                echo 'Exception when calling RCCFicoScorePLDApi->testGetConsultas: ', $e->getMessage(), PHP_EOL;
+                echo 'Exception when calling RCC-FS-PLDApi->testGetConsultas: ', $e->getMessage(), PHP_EOL;
             }
         } else {
             print_r("x_full_report inicializado en true");
@@ -111,7 +101,7 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
                 print_r($result);
                 $this->assertTrue($result->getCreditos()!==null);
             } catch (Exception $e) {
-                echo 'Exception when calling RCCFicoScorePLDApi->testGetCreditos: ', $e->getMessage(), PHP_EOL;
+                echo 'Exception when calling RCC-FS-PLDApi->testGetCreditos: ', $e->getMessage(), PHP_EOL;
             }
         } else {
             print_r("x_full_report inicializado en true");
@@ -130,7 +120,7 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
                 print_r($result);
                 $this->assertTrue($result->getDomicilios()!==null);
             } catch (Exception $e) {
-                echo 'Exception when calling RCCFicoScorePLDApi->testGetDomicilios: ', $e->getMessage(), PHP_EOL;
+                echo 'Exception when calling RCC-FS-PLDApi->testGetDomicilios: ', $e->getMessage(), PHP_EOL;
             }
         } else {
             print_r("x_full_report inicializado en true");
@@ -149,7 +139,7 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
                 print_r($result);
                 $this->assertTrue($result->getEmpleos()!==null);
             } catch (Exception $e) {
-                echo 'Exception when calling RCCFicoScorePLDApi->testGetEmpleos: ', $e->getMessage(), PHP_EOL;
+                echo 'Exception when calling RCC-FS-PLDApi->testGetEmpleos: ', $e->getMessage(), PHP_EOL;
             }
         } else {
             print_r("x_full_report inicializado en true");
@@ -168,7 +158,7 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
                 print_r($result);
                 $this->assertTrue($result->getScores()!==null);
             } catch (Exception $e) {
-                echo 'Exception when calling RCCFicoScorePLDApi->testGetScores: ', $e->getMessage(), PHP_EOL;
+                echo 'Exception when calling RCC-FS-PLDApi->testGetScores: ', $e->getMessage(), PHP_EOL;
             }
         } else {
             print_r("x_full_report inicializado en true");
@@ -187,11 +177,10 @@ class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
                 print_r($result);
                 $this->assertTrue($result->getMensajes()!==null);
             } catch (Exception $e) {
-                echo 'Exception when calling RCCFicoScorePLDApi->testGetMensajes: ', $e->getMessage(), PHP_EOL;
+                echo 'Exception when calling RCC-FS-PLDApi->testGetMensajes: ', $e->getMessage(), PHP_EOL;
             }
         } else {
             print_r("x_full_report inicializado en true");
         }         
     }    
 }
-

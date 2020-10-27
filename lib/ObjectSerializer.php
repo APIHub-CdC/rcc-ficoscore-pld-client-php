@@ -1,6 +1,6 @@
 <?php
 
-namespace RCCFicoScorePLD\Client;
+namespace RCCFSPLD\MX\Client;
 
 class ObjectSerializer
 {
@@ -165,7 +165,7 @@ class ObjectSerializer
         } else {
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = '\RCCFicoScorePLD\Client\Model\\' . $data->{$discriminator};
+                $subclass = '\RCCFSPLD\MX\Client\Model\\' . $data->{$discriminator};
                 if (is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }

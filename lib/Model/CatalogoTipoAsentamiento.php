@@ -1,7 +1,7 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+namespace RCCFSPLD\MX\Client\Model;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class CatalogoTipoAsentamiento
 {
