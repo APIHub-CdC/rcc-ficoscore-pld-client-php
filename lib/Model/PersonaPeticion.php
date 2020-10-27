@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class PersonaPeticion implements ModelInterface, ArrayAccess
 {
@@ -21,13 +21,13 @@ class PersonaPeticion implements ModelInterface, ArrayAccess
         'rfc' => 'string',
         'curp' => 'string',
         'nacionalidad' => 'string',
-        'residencia' => '\RCCFicoScorePLD\Client\Model\CatalogoResidencia',
-        'estado_civil' => '\RCCFicoScorePLD\Client\Model\CatalogoEstadoCivil',
-        'sexo' => '\RCCFicoScorePLD\Client\Model\CatalogoSexo',
+        'residencia' => '\RCCFSPLD\MX\Client\Model\CatalogoResidencia',
+        'estado_civil' => '\RCCFSPLD\MX\Client\Model\CatalogoEstadoCivil',
+        'sexo' => '\RCCFSPLD\MX\Client\Model\CatalogoSexo',
         'clave_elector_ife' => 'string',
         'numero_dependientes' => 'int',
         'fecha_defuncion' => 'string',
-        'domicilio' => '\RCCFicoScorePLD\Client\Model\DomicilioPeticion'
+        'domicilio' => '\RCCFSPLD\MX\Client\Model\DomicilioPeticion'
     ];
     
     protected static $apihubFormats = [

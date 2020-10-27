@@ -1,6 +1,6 @@
 <?php
 
-namespace RCCFicoScorePLD\Client;
+namespace RCCFSPLD\MX\Client;
 
 class Configuration
 {
@@ -159,7 +159,7 @@ class Configuration
     
     public static function toDebugReport()
     {
-        $report  = 'PHP SDK (RCCFicoScorePLD\Client) Debug Report:' . PHP_EOL;
+        $report  = 'PHP SDK (RCCFSPLD\MX\Client) Debug Report:' . PHP_EOL;
         $report .= '    OS: ' . php_uname() . PHP_EOL;
         $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
         $report .= '    OpenAPI Spec Version: 0.0.0' . PHP_EOL;

@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class PersonaRespuesta implements ModelInterface, ArrayAccess
 {
@@ -21,9 +21,9 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         'curp' => 'string',
         'numero_seguridad_social' => 'int',
         'nacionalidad' => 'string',
-        'residencia' => '\RCCFicoScorePLD\Client\Model\CatalogoResidencia',
-        'estado_civil' => '\RCCFicoScorePLD\Client\Model\CatalogoEstadoCivil',
-        'sexo' => '\RCCFicoScorePLD\Client\Model\CatalogoSexo',
+        'residencia' => '\RCCFSPLD\MX\Client\Model\CatalogoResidencia',
+        'estado_civil' => '\RCCFSPLD\MX\Client\Model\CatalogoEstadoCivil',
+        'sexo' => '\RCCFSPLD\MX\Client\Model\CatalogoSexo',
         'clave_elector_ife' => 'string',
         'numero_dependientes' => 'int',
         'fecha_defuncion' => 'string'

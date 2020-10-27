@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class Credito implements ModelInterface, ArrayAccess
 {
@@ -17,13 +17,13 @@ class Credito implements ModelInterface, ArrayAccess
         'clave_otorgante' => 'string',
         'nombre_otorgante' => 'string',
         'cuenta_actual' => 'string',
-        'tipo_responsabilidad' => '\RCCFicoScorePLD\Client\Model\CatalogoTipoResponsabilidad',
-        'tipo_cuenta' => '\RCCFicoScorePLD\Client\Model\CatalogoTipoCuenta',
-        'tipo_credito' => '\RCCFicoScorePLD\Client\Model\CatalogoTipoCredito',
-        'clave_unidad_monetaria' => '\RCCFicoScorePLD\Client\Model\CatalogoMoneda',
+        'tipo_responsabilidad' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoResponsabilidad',
+        'tipo_cuenta' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoCuenta',
+        'tipo_credito' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoCredito',
+        'clave_unidad_monetaria' => '\RCCFSPLD\MX\Client\Model\CatalogoMoneda',
         'valor_activo_valuacion' => 'int',
         'numero_pagos' => 'int',
-        'frecuencia_pagos' => '\RCCFicoScorePLD\Client\Model\CatalogoFrecuenciaPago',
+        'frecuencia_pagos' => '\RCCFSPLD\MX\Client\Model\CatalogoFrecuenciaPago',
         'monto_pagar' => 'float',
         'fecha_apertura_cuenta' => 'string',
         'fecha_ultimo_pago' => 'string',
@@ -41,7 +41,7 @@ class Credito implements ModelInterface, ArrayAccess
         'historico_pagos' => 'string',
         'fecha_reciente_historico_pagos' => 'string',
         'fecha_antigua_historico_pagos' => 'string',
-        'clave_prevencion' => '\RCCFicoScorePLD\Client\Model\CatalogoPrevencion',
+        'clave_prevencion' => '\RCCFSPLD\MX\Client\Model\CatalogoPrevencion',
         'total_pagos_reportados' => 'int',
         'peor_atraso' => 'float',
         'fecha_peor_atraso' => 'string',
@@ -49,7 +49,7 @@ class Credito implements ModelInterface, ArrayAccess
         'monto_ultimo_pago' => 'double',
         'id_domicilio' => 'string',
         'servicios' => 'string',
-        'can' => '\RCCFicoScorePLD\Client\Model\CAN'
+        'can' => '\RCCFSPLD\MX\Client\Model\CAN'
     ];
     
     protected static $apihubFormats = [

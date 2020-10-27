@@ -19,14 +19,15 @@ apt-get install php7.3-mbstring
 ## Instalación
 
 Ejecutar: `composer install`
+
 ## Guía de inicio
 
 ### Paso 1. Generar llave y certificado
 
 - Se tiene que tener un contenedor en formato PKCS12.
-- En caso de no contar con uno, ejecutar las instrucciones contenidas en **lib/Interceptor/key_pair_gen.sh** ó con los siguientes comandos.
+- En caso de no contar con uno, ejecutar las instrucciones contenidas en **lib/Interceptor/key_pair_gen.sh** o con los siguientes comandos.
 
-**opcional**: Para cifrar el contenedor, colocar una contraseña en una variable de ambiente.
+**Opcional**: Para cifrar el contenedor, colocar una contraseña en una variable de ambiente.
 ```sh
 export KEY_PASSWORD=your_password
 ```
@@ -67,9 +68,9 @@ openssl pkcs12 -name ${ALIAS} \
     <p align="center">
       <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/applications.png">
     </p>
- 5. Al abrirse la ventana emergente, seleccionar el certificado previamente creado y dar clic en el botón "**Cargar**":
+ 5. Al abrirse la ventana, seleccionar el certificado previamente creado y dar clic en el botón "**Cargar**":
     <p align="center">
-      <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/upload_cert.png" width="268">
+      <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/upload_cert.png">
     </p>
 
 ### Paso 3. Descargar el certificado de Círculo de Crédito dentro del portal de desarrolladores
@@ -81,127 +82,92 @@ openssl pkcs12 -name ${ALIAS} \
     <p align="center">
         <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/applications.png">
     </p>
- 5. Al abrirse la ventana emergente, dar clic al botón "**Descargar**":
+ 5. Al abrirse la ventana, dar clic al botón "**Descargar**":
     <p align="center">
-        <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/download_cert.png" width="268">
+        <img src="https://github.com/APIHub-CdC/imagenes-cdc/blob/master/download_cert.png">
     </p>
  > Es importante que este contenedor sea almacenado en la siguiente ruta:
  > **/path/to/repository/lib/Interceptor/keypair.p12**
  >
- > Así mismo el certificado proporcionado por círculo de crédito en la siguiente ruta:
+ > Así mismo el certificado proporcionado por Círculo de Crédito en la siguiente ruta:
  > **/path/to/repository/lib/Interceptor/cdc_cert.pem**
 - En caso de que no se almacene así, se debe especificar la ruta donde se encuentra el contenedor y el certificado. Ver el siguiente ejemplo:
 ```php
 $password = getenv('KEY_PASSWORD');
-$this->signer = new \RCCFicoScorePLD\Client\Interceptor\KeyHandler(
+$this->signer = new KeyHandler(
     "/example/route/keypair.p12",
     "/example/route/cdc_cert.pem",
     $password
 );
 ```
- > **NOTA:** Sólamente en caso de que el contenedor haya cifrado, se debe colocar la contraseña en una variable de ambiente e indicar el nombre de la misma, como se ve en la imagen anterior.
+ > **NOTA:** Solamente en caso de que el contenedor se haya cifrado, debe colocarse la contraseña en una variable de ambiente e indicar el nombre de la misma, como se ve en la imagen anterior.
+ 
+### Paso 4. Modificar URL y credenciales
 
-### Paso 4. Modificar URL
- Modificar la URL de la petición en ***test/Api/ApiTest.php***, como se muestra en el siguiente fragmento de código:
- ```php
- $config = new \RCCFicoScorePLD\Client\Configuration();
- $config->setHost('the_url');
+ Modificar la URL y las credenciales de acceso a la petición en ***test/Api/ApiTest.php***, como se muestra en el siguiente fragmento de código:
+
+```php
+public function setUp()
+{
+    $password = getenv('KEY_PASSWORD');
+    $this->signer = new KeyHandler(null, null, $password);
+
+    $events = new MiddlewareEvents($this->signer);
+    $handler = handlerStack::create();
+    $handler->push($events->add_signature_header('x-signature'));   
+    $handler->push($events->verify_signature_header('x-signature'));
+    $client = new Client(['handler' => $handler]);
+
+    $config = new Configuration();
+    $config->setHost('the_url');
+    
+    $this->apiInstance = new Instance($client, $config);
+    $this->x_api_key = "your_api_key";
+    $this->username = "your_username";
+    $this->password = "your_password";
+}   
  ```
  
-### Paso 5. Reporte completo o segmentado
-
- Modificar la variable en ***test/Api/ApiTest.php*** (false si es segmentado o true para reporte completo), como se muestra en el siguiente fragmento de código:
- ```php
-$this->x_full_report = 'false';
- ```
- 
-### Paso 6. Capturar los datos de la petición
+### Paso 5. Capturar los datos de la petición
 
 Es importante contar con el setUp() que se encargará de firmar y verificar la petición.
 
+> **NOTA:** Los datos de la siguiente petición son solo representativos.
+
 ```php
-<?php
-namespace RCCFicoScorePLD\Client;
-
-use \GuzzleHttp\Client;
-use \GuzzleHttp\Event\Emitter;
-use \GuzzleHttp\Middleware;
-use \GuzzleHttp\HandlerStack as handlerStack;
-
-use \RCCFicoScorePLD\Client\ApiException;
-use \RCCFicoScorePLD\Client\Configuration;
-use \RCCFicoScorePLD\Client\Model\Error;
-use \RCCFicoScorePLD\Client\Interceptor\KeyHandler;
-use \RCCFicoScorePLD\Client\Interceptor\MiddlewareEvents;
-
-class RCCFicoScorePLDApiTest extends \PHPUnit_Framework_TestCase
+public function testGetReporte()
 {
+    $estado = new CatalogoEstados();
+    $request = new PersonaPeticion();
+    $domicilio = new DomicilioPeticion();        
 
-    public function setUp()
-    {
-        $password = getenv('KEY_PASSWORD');
-        $this->signer = new \RCCFicoScorePLD\Client\Interceptor\KeyHandler(null, null, $password);
+    $request->setPrimerNombre("JUAN");
+    $request->setApellidoPaterno("PRUEBA");
+    $request->setApellidoMaterno("SIETE");
+    $request->setFechaNacimiento("1980-01-07");
+    $request->setRfc("PUAC800107");
+    $request->setCurp(null);
+    $request->setNacionalidad("MX");
 
-        $events = new \RCCFicoScorePLD\Client\Interceptor\MiddlewareEvents($this->signer);
-        $handler = handlerStack::create();
-        $handler->push($events->add_signature_header('x-signature'));   
-        $handler->push($events->verify_signature_header('x-signature'));
-        $client = new \GuzzleHttp\Client(['handler' => $handler]);
+    $domicilio->setDireccion("INSURGENTES SUR 1001");
+    $domicilio->setColoniaPoblacion("INSURGENTES SUR");
+    $domicilio->setDelegacionMunicipio("CIUDAD DE MEXICO");
+    $domicilio->setCiudad("CIUDAD DE MEXICO");
+    $domicilio->setEstado($estado::DF);
+    $domicilio->setCp("11230");
+    $request->setDomicilio($domicilio);
 
-        $config = new \RCCFicoScorePLD\Client\Configuration();
-        $config->setHost('the_url');
-        $this->apiInstance = new \RCCFicoScorePLD\Client\Api\RCCFicoScorePLDApi($client, $config);
-        $this->x_api_key = "your_api_key";
-        $this->username = "your_username";
-        $this->password = "your_password";
+
+    try {
+        $result = $this->apiInstance->getReporte($this->x_api_key, $this->username, $this->password, $request, $this->x_full_report);
+        $this->signer->close();
+        print_r($result);
+        $this->assertTrue($result->getFolioConsulta()!==null);
+        return $result->getFolioConsulta();
+    } catch (Exception $e) {
+        echo 'Exception when calling RCC-FS-PLDApi->getReporte: ', $e->getMessage(), PHP_EOL;
     }
-
-    public function testGetReporte()
-    {
-        $estado = new \RCCFicoScorePLD\Client\Model\CatalogoEstados();
-        $request = new \RCCFicoScorePLD\Client\Model\PersonaPeticion();
-
-        $request->setApellidoPaterno("PATERNO");
-        $request->setApellidoMaterno("MATERNO");
-        $request->setApellidoAdicional(null);
-        $request->setPrimerNombre("PRIMERNOMBRE");
-        $request->setSegundoNombre(null);
-        $request->setFechaNacimiento("1952-05-13");
-        $request->setRfc("PAMP010101");
-        $request->setCurp(null);
-        $request->setNacionalidad(null);
-        $request->setResidencia(null);
-        $request->setEstadoCivil(null);
-        $request->setSexo(null);
-        $request->setClaveElectorIfe(null);
-        $request->setNumeroDependientes(null);
-        $request->setFechaDefuncion(null);
-
-        $domicilio->setDireccion("HIDALGO 32");
-        $domicilio->setColoniaPoblacion(null);
-        $domicilio->setDelegacionMunicipio("LA BARCA");
-        $domicilio->setCiudad("BENITO JUAREZ");
-        $domicilio->setEstado($estado::JAL);
-        $domicilio->setCp("44190");
-        $domicilio->setFechaResidencia(null);
-        $domicilio->setNumeroTelefono(null);
-        $domicilio->setTipoDomicilio(null);
-        $domicilio->setTipoAsentamiento(null);
-        $request->setDomicilio($domicilio);
-
-
-        try {
-            $result = $this->apiInstance->getReporte($this->x_api_key, $this->username, $this->password, $request, $this->x_full_report);
-            $this->signer->close();
-            print_r($result);
-            $this->assertTrue($result->getFolioConsulta()!==null);
-            return $result->getFolioConsulta();
-        } catch (Exception $e) {
-            echo 'Exception when calling RCCFicoScorePLDApi->getReporte: ', $e->getMessage(), PHP_EOL;
-        }
-    }    
 }
-
 ```
 
 ## Pruebas unitarias
