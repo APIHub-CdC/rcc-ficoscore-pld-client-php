@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class Mensajes implements ModelInterface, ArrayAccess
 {
@@ -12,7 +12,7 @@ class Mensajes implements ModelInterface, ArrayAccess
     protected static $apihubModelName = 'Mensajes';
     
     protected static $apihubTypes = [
-        'mensajes' => '\RCCFicoScorePLD\Client\Model\Mensaje[]'
+        'mensajes' => '\RCCFSPLD\MX\Client\Model\Mensaje[]'
     ];
     
     protected static $apihubFormats = [

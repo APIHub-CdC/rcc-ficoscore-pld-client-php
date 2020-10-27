@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class Score implements ModelInterface, ArrayAccess
 {
@@ -14,7 +14,7 @@ class Score implements ModelInterface, ArrayAccess
     protected static $apihubTypes = [
         'nombre_score' => 'string',
         'valor' => 'int',
-        'razones' => '\RCCFicoScorePLD\Client\Model\CatalogoRazones[]'
+        'razones' => '\RCCFSPLD\MX\Client\Model\CatalogoRazones[]'
     ];
     
     protected static $apihubFormats = [

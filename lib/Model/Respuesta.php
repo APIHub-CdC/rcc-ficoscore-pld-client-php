@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class Respuesta implements ModelInterface, ArrayAccess
 {
@@ -16,13 +16,13 @@ class Respuesta implements ModelInterface, ArrayAccess
         'folio_consulta_otorgante' => 'string',
         'clave_otorgante' => 'string',
         'declaraciones_consumidor' => 'string',
-        'persona' => '\RCCFicoScorePLD\Client\Model\PersonaRespuesta',
-        'consultas' => '\RCCFicoScorePLD\Client\Model\Consulta[]',
-        'creditos' => '\RCCFicoScorePLD\Client\Model\Credito[]',
-        'domicilios' => '\RCCFicoScorePLD\Client\Model\DomicilioRespuesta[]',
-        'empleos' => '\RCCFicoScorePLD\Client\Model\Empleo[]',
-        'scores' => '\RCCFicoScorePLD\Client\Model\Score[]',
-        'mensajes' => '\RCCFicoScorePLD\Client\Model\Mensaje[]'
+        'persona' => '\RCCFSPLD\MX\Client\Model\PersonaRespuesta',
+        'consultas' => '\RCCFSPLD\MX\Client\Model\Consulta[]',
+        'creditos' => '\RCCFSPLD\MX\Client\Model\Credito[]',
+        'domicilios' => '\RCCFSPLD\MX\Client\Model\DomicilioRespuesta[]',
+        'empleos' => '\RCCFSPLD\MX\Client\Model\Empleo[]',
+        'scores' => '\RCCFSPLD\MX\Client\Model\Score[]',
+        'mensajes' => '\RCCFSPLD\MX\Client\Model\Mensaje[]'
     ];
     
     protected static $apihubFormats = [

@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class DomiciliosRespuesta implements ModelInterface, ArrayAccess
 {
@@ -12,7 +12,7 @@ class DomiciliosRespuesta implements ModelInterface, ArrayAccess
     protected static $apihubModelName = 'DomiciliosRespuesta';
     
     protected static $apihubTypes = [
-        'domicilios' => '\RCCFicoScorePLD\Client\Model\DomicilioRespuesta[]'
+        'domicilios' => '\RCCFSPLD\MX\Client\Model\DomicilioRespuesta[]'
     ];
     
     protected static $apihubFormats = [

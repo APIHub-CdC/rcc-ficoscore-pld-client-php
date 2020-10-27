@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class Empleo implements ModelInterface, ArrayAccess
 {
@@ -17,14 +17,14 @@ class Empleo implements ModelInterface, ArrayAccess
         'colonia_poblacion' => 'string',
         'delegacion_municipio' => 'string',
         'ciudad' => 'string',
-        'estado' => '\RCCFicoScorePLD\Client\Model\CatalogoEstados',
+        'estado' => '\RCCFSPLD\MX\Client\Model\CatalogoEstados',
         'cp' => 'string',
         'numero_telefono' => 'int',
         'extension' => 'int',
         'fax' => 'int',
         'puesto' => 'string',
         'fecha_contratacion' => 'string',
-        'clave_moneda' => '\RCCFicoScorePLD\Client\Model\CatalogoMoneda',
+        'clave_moneda' => '\RCCFSPLD\MX\Client\Model\CatalogoMoneda',
         'salario_mensual' => 'float',
         'fecha_ultimo_dia_empleo' => 'string',
         'fecha_verificacion_empleo' => 'string'

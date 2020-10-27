@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class DomicilioPeticion implements ModelInterface, ArrayAccess
 {
@@ -16,12 +16,12 @@ class DomicilioPeticion implements ModelInterface, ArrayAccess
         'colonia_poblacion' => 'string',
         'delegacion_municipio' => 'string',
         'ciudad' => 'string',
-        'estado' => '\RCCFicoScorePLD\Client\Model\CatalogoEstados',
+        'estado' => '\RCCFSPLD\MX\Client\Model\CatalogoEstados',
         'cp' => 'string',
         'fecha_residencia' => 'string',
         'numero_telefono' => 'int',
-        'tipo_domicilio' => '\RCCFicoScorePLD\Client\Model\CatalogoTipoDomicilio',
-        'tipo_asentamiento' => '\RCCFicoScorePLD\Client\Model\CatalogoTipoAsentamiento'
+        'tipo_domicilio' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoDomicilio',
+        'tipo_asentamiento' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoAsentamiento'
     ];
     
     protected static $apihubFormats = [

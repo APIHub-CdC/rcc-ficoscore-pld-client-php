@@ -1,9 +1,9 @@
 <?php
 
-namespace RCCFicoScorePLD\Client\Model;
+namespace RCCFSPLD\MX\Client\Model;
 
 use \ArrayAccess;
-use \RCCFicoScorePLD\Client\ObjectSerializer;
+use \RCCFSPLD\MX\Client\ObjectSerializer;
 
 class Consulta implements ModelInterface, ArrayAccess
 {
@@ -18,9 +18,9 @@ class Consulta implements ModelInterface, ArrayAccess
         'direccion_otorgante' => 'string',
         'telefono_otorgante' => 'int',
         'tipo_credito' => 'string',
-        'clave_unidad_monetaria' => '\RCCFicoScorePLD\Client\Model\CatalogoMoneda',
+        'clave_unidad_monetaria' => '\RCCFSPLD\MX\Client\Model\CatalogoMoneda',
         'importe_credito' => 'float',
-        'tipo_responsabilidad' => '\RCCFicoScorePLD\Client\Model\CatalogoTipoResponsabilidad',
+        'tipo_responsabilidad' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoResponsabilidad',
         'id_domicilio' => 'string',
         'servicios' => 'string'
     ];
