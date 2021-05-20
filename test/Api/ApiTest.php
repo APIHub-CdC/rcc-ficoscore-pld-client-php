@@ -4,13 +4,11 @@ namespace RCCFSPLD\MX\Client;
 use \GuzzleHttp\Client;
 use \GuzzleHttp\HandlerStack as handlerStack;
 
-use Signer\Manager\ApiException;
 use Signer\Manager\Interceptor\MiddlewareEvents;
 use Signer\Manager\Interceptor\KeyHandler;
 
 use \RCCFSPLD\MX\Client\Api\RCCFSPLDApi as Instance;
 use \RCCFSPLD\MX\Client\Configuration;
-use \RCCFSPLD\MX\Client\Model\Error;
 
 use \RCCFSPLD\MX\Client\Model\CatalogoEstados;
 use \RCCFSPLD\MX\Client\Model\PersonaPeticion;
@@ -20,19 +18,25 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp() {
-        $config = new Configuration();
-        $config->setHost('the_url');
+
+        $this->x_api_key = "XXXXXXXXX";
+        $this->username = "XXXXXXXX";
+        $this->password = "XXXXXXX";
+        $this->x_full_report = "false";
+        $host = "the_url";
         $password = getenv('KEY_PASSWORD');
-        $this->signer = new KeyHandler(null, null, $password);
+
+        $this->signer = new KeyHandler("/folder/keypair.p12", "/folder/cdc_certifcate.pem", $password);
         $events = new MiddlewareEvents($this->signer);
         $handler = HandlerStack::create();
         $handler->push($events->add_signature_header('x-signature'));
         $handler->push($events->verify_signature_header('x-signature'));
+        
+        $config = new Configuration();
+        $config->setHost($host);
         $client = new Client(['handler' => $handler]);
         $this->apiInstance = new Instance($client, $config);
-        $this->x_api_key = "your_api_key";
-        $this->username = "your_username";
-        $this->password = "your_password";
+        
     }
 
     public function testGetReporte()
@@ -41,20 +45,20 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $request = new PersonaPeticion();
         $domicilio = new DomicilioPeticion();        
 
-        $request->setPrimerNombre("JUAN");
-        $request->setApellidoPaterno("PRUEBA");
-        $request->setApellidoMaterno("SIETE");
-        $request->setFechaNacimiento("1980-01-07");
-        $request->setRfc("PUAC800107");
+        $request->setPrimerNombre("XXXXXXXXX");
+        $request->setApellidoPaterno("XXXXXXXXX");
+        $request->setApellidoMaterno("XXXXXXXXX");
+        $request->setFechaNacimiento("XXXX-XX-XX");
+        $request->setRfc("XXXXXXXXX");
         $request->setCurp(null);
         $request->setNacionalidad("MX");
 
-        $domicilio->setDireccion("INSURGENTES SUR 1001");
-        $domicilio->setColoniaPoblacion("INSURGENTES SUR");
-        $domicilio->setDelegacionMunicipio("CIUDAD DE MEXICO");
-        $domicilio->setCiudad("CIUDAD DE MEXICO");
+        $domicilio->setDireccion("XXXXXXXXX");
+        $domicilio->setColoniaPoblacion("XXXXXXXXX");
+        $domicilio->setDelegacionMunicipio("XXXXXXXXX");
+        $domicilio->setCiudad("XXXXXXXXX");
         $domicilio->setEstado($estado::DF);
-        $domicilio->setCp("11230");
+        $domicilio->setCp("XXXXX");
         $request->setDomicilio($domicilio);
 
 
@@ -164,7 +168,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             print_r("x_full_report inicializado en true");
         }         
     }
- 
+
     /**
      * @depends testGetReporte
      */
