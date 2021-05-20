@@ -1095,14 +1095,14 @@ class RCCFSPLDApi
     
     public function getMensajes($folio_consulta, $x_api_key, $username, $password)
     {
-        list($response) = $this->getMensajesWithHttpInfo($folio_consulta, $x_signature, $x_api_key, $username, $password);
+        list($response) = $this->getMensajesWithHttpInfo($folio_consulta, $x_api_key, $username, $password);
         return $response;
     }
 
-    public function getMensajesWithHttpInfo($folio_consulta, $x_signature, $x_api_key, $username, $password)
+    public function getMensajesWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
         $returnType = '\RCCFSPLD\MX\Client\Model\Mensajes';
-        $request = $this->getMensajesRequest($folio_consulta, $x_signature, $x_api_key, $username, $password);
+        $request = $this->getMensajesRequest($folio_consulta, $x_api_key, $username, $password);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1219,9 +1219,9 @@ class RCCFSPLDApi
         }
     }
 
-    public function getMensajesAsync($folio_consulta, $x_signature, $x_api_key, $username, $password)
+    public function getMensajesAsync($folio_consulta, $x_api_key, $username, $password)
     {
-        return $this->getMensajesAsyncWithHttpInfo($folio_consulta, $x_signature, $x_api_key, $username, $password)
+        return $this->getMensajesAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1229,10 +1229,10 @@ class RCCFSPLDApi
             );
     }
 
-    public function getMensajesAsyncWithHttpInfo($folio_consulta, $x_signature, $x_api_key, $username, $password)
+    public function getMensajesAsyncWithHttpInfo($folio_consulta, $x_api_key, $username, $password)
     {
         $returnType = '\RCCFSPLD\MX\Client\Model\Mensajes';
-        $request = $this->getMensajesRequest($folio_consulta, $x_signature, $x_api_key, $username, $password);
+        $request = $this->getMensajesRequest($folio_consulta, $x_api_key, $username, $password);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1270,7 +1270,7 @@ class RCCFSPLDApi
             );
     }
 
-    protected function getMensajesRequest($folio_consulta, $x_signature, $x_api_key, $username, $password)
+    protected function getMensajesRequest($folio_consulta, $x_api_key, $username, $password)
     {
         // verify the required parameter 'folio_consulta' is set
         if ($folio_consulta === null || (is_array($folio_consulta) && count($folio_consulta) === 0)) {
