@@ -22,7 +22,6 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $this->x_api_key = "XXXXXXXXX";
         $this->username = "XXXXXXXX";
         $this->password = "XXXXXXX";
-        $this->x_full_report = "false";
         $host = "the_url";
         $password = getenv('KEY_PASSWORD');
 
@@ -63,7 +62,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
 
         try {
-            $result = $this->apiInstance->getReporte($this->x_api_key, $this->username, $this->password, $request, $this->x_full_report);
+            $result = $this->apiInstance->getReporte($this->x_api_key, $this->username, $this->password, $request);
             $this->signer->close();
             print_r($result);
             $this->assertTrue($result->getFolioConsulta()!==null);
@@ -73,118 +72,6 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         }
     } 
 
-   /**
-     * @depends testGetReporte
-     */    
-    public function testGetConsultas($folioConsulta)
-    {
-        if($this->x_full_report == "false") {
-            try {
-                $result = $this->apiInstance->getConsultas($folioConsulta, $this->x_api_key, $this->username, $this->password);
-                $this->signer->close();
-                print_r($result);
-                $this->assertTrue($result->getConsultas()!==null);
-            } catch (Exception $e) {
-                echo 'Exception when calling RCC-FS-PLDApi->testGetConsultas: ', $e->getMessage(), PHP_EOL;
-            }
-        } else {
-            print_r("x_full_report inicializado en true");
-        }
-    }
+ 
 
-
-    /**
-     * @depends testGetReporte
-     */
-    public function testGetCreditos($folioConsulta)
-    {
-        if($this->x_full_report == "false") {
-            try {
-                $result = $this->apiInstance->getCreditos($folioConsulta, $this->x_api_key, $this->username, $this->password);
-                $this->signer->close();
-                print_r($result);
-                $this->assertTrue($result->getCreditos()!==null);
-            } catch (Exception $e) {
-                echo 'Exception when calling RCC-FS-PLDApi->testGetCreditos: ', $e->getMessage(), PHP_EOL;
-            }
-        } else {
-            print_r("x_full_report inicializado en true");
-        }        
-    }
-
-    /**
-     * @depends testGetReporte
-     */
-    public function testGetDomicilios($folioConsulta)
-    {
-        if($this->x_full_report == "false") {
-            try {
-                $result = $this->apiInstance->getDomicilios($folioConsulta, $this->x_api_key, $this->username, $this->password);
-                $this->signer->close();
-                print_r($result);
-                $this->assertTrue($result->getDomicilios()!==null);
-            } catch (Exception $e) {
-                echo 'Exception when calling RCC-FS-PLDApi->testGetDomicilios: ', $e->getMessage(), PHP_EOL;
-            }
-        } else {
-            print_r("x_full_report inicializado en true");
-        }          
-    }
-
-    /**
-     * @depends testGetReporte
-     */
-    public function testGetEmpleos($folioConsulta)
-    {
-        if($this->x_full_report == "false") {
-            try {
-                $result = $this->apiInstance->getEmpleos($folioConsulta, $this->x_api_key, $this->username, $this->password);
-                $this->signer->close();
-                print_r($result);
-                $this->assertTrue($result->getEmpleos()!==null);
-            } catch (Exception $e) {
-                echo 'Exception when calling RCC-FS-PLDApi->testGetEmpleos: ', $e->getMessage(), PHP_EOL;
-            }
-        } else {
-            print_r("x_full_report inicializado en true");
-        }          
-    }
-
-    /**
-     * @depends testGetReporte
-     */
-    public function testGetScores($folioConsulta)
-    {
-        if($this->x_full_report == "false") {
-            try {
-                $result = $this->apiInstance->getScores($folioConsulta, $this->x_api_key, $this->username, $this->password);
-                $this->signer->close();
-                print_r($result);
-                $this->assertTrue($result->getScores()!==null);
-            } catch (Exception $e) {
-                echo 'Exception when calling RCC-FS-PLDApi->testGetScores: ', $e->getMessage(), PHP_EOL;
-            }
-        } else {
-            print_r("x_full_report inicializado en true");
-        }         
-    }
-
-    /**
-     * @depends testGetReporte
-     */
-    public function testGetMensajes($folioConsulta)
-    {
-        if($this->x_full_report == "false") {
-            try {
-                $result = $this->apiInstance->getMensajes($folioConsulta, $this->x_api_key, $this->username, $this->password);
-                $this->signer->close();
-                print_r($result);
-                $this->assertTrue($result->getMensajes()!==null);
-            } catch (Exception $e) {
-                echo 'Exception when calling RCC-FS-PLDApi->testGetMensajes: ', $e->getMessage(), PHP_EOL;
-            }
-        } else {
-            print_r("x_full_report inicializado en true");
-        }         
-    }    
 }
