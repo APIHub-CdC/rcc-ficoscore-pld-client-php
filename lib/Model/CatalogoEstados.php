@@ -39,6 +39,7 @@ class CatalogoEstados
     const VER = 'VER';
     const YUC = 'YUC';
     const ZAC = 'ZAC';
+    const ND = 'ND';
     
     
     public static function getAllowableEnumValues()
@@ -77,6 +78,7 @@ class CatalogoEstados
             self::VER,
             self::YUC,
             self::ZAC,
+            self::ND
         ];
     }
 }
