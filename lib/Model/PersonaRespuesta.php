@@ -21,9 +21,9 @@ class PersonaRespuesta implements ModelInterface, ArrayAccess
         'curp' => 'string',
         'numero_seguridad_social' => 'int',
         'nacionalidad' => 'string',
-        'residencia' => '\RCCFSPLD\MX\Client\Model\CatalogoResidencia',
-        'estado_civil' => '\RCCFSPLD\MX\Client\Model\CatalogoEstadoCivil',
-        'sexo' => '\RCCFSPLD\MX\Client\Model\CatalogoSexo',
+        'residencia' => 'string',
+        'estado_civil' => 'string',
+        'sexo' => 'string',
         'clave_elector_ife' => 'string',
         'numero_dependientes' => 'int',
         'fecha_defuncion' => 'string'
