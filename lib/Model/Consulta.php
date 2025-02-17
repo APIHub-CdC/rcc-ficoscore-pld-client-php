@@ -18,9 +18,9 @@ class Consulta implements ModelInterface, ArrayAccess
         'direccion_otorgante' => 'string',
         'telefono_otorgante' => 'int',
         'tipo_credito' => 'string',
-        'clave_unidad_monetaria' => '\RCCFSPLD\MX\Client\Model\CatalogoMoneda',
+        'clave_unidad_monetaria' => 'string',
         'importe_credito' => 'float',
-        'tipo_responsabilidad' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoResponsabilidad',
+        'tipo_responsabilidad' => 'string',
         'id_domicilio' => 'string',
         'servicios' => 'string'
     ];

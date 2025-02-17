@@ -14,7 +14,7 @@ class Score implements ModelInterface, ArrayAccess
     protected static $apihubTypes = [
         'nombre_score' => 'string',
         'valor' => 'int',
-        'razones' => '\RCCFSPLD\MX\Client\Model\CatalogoRazones[]'
+        'razones' => 'string[]'
     ];
     
     protected static $apihubFormats = [

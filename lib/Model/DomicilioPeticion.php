@@ -16,12 +16,12 @@ class DomicilioPeticion implements ModelInterface, ArrayAccess
         'colonia_poblacion' => 'string',
         'delegacion_municipio' => 'string',
         'ciudad' => 'string',
-        'estado' => '\RCCFSPLD\MX\Client\Model\CatalogoEstados',
+        'estado' => 'string',
         'cp' => 'string',
         'fecha_residencia' => 'string',
         'numero_telefono' => 'int',
-        'tipo_domicilio' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoDomicilio',
-        'tipo_asentamiento' => '\RCCFSPLD\MX\Client\Model\CatalogoTipoAsentamiento'
+        'tipo_domicilio' => 'string',
+        'tipo_asentamiento' => 'string'
     ];
     
     protected static $apihubFormats = [
